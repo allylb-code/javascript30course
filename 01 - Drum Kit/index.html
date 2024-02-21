@@ -60,6 +60,24 @@
 
 <script>
 
+    function playSound(e) {
+        const audio = document.querySelector(`audio[data-key="${e.keyCode}"]`);
+        const key = document.querySelector(`.key[data-key="${e.keyCode}"]`);
+        if(!audio) return; //nothing will happen if you pick a key that isn't listed
+        audio.currentTime = 0; //so audio can play each time the button is pressed
+        audio.play();
+        key.classList.add('playing');
+    }
+
+    function removeTransition(e) {
+        if (e.propertyName !== 'transform') return; // skip if it's not transform
+        this.classList.remove('playing'); // this = key
+    }
+
+    const keys = document.querySelectorAll('.key');
+    keys.forEach(key => key.addEventListener('transitionend', removeTransition));
+    window.addEventListener('keydown', playSound);
+    
 </script>
 
 
