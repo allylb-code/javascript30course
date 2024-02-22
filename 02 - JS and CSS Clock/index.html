@@ -63,9 +63,15 @@
       background: black;
       position: absolute;
       top: 50%;
+      transform-origin: 100%; /* rotate hands in center of clock (right) */
+      transform: rotate(90deg); /* rotate from 12 (hands point up & down) */
+      transition: all 0.05s; /* rotation speed */
+      transition-timing-function: cubic-bezier(0.1, 2.7, 0.58, 1); /* ticking */
     }
 
   </style>
+
+
 
   <script>
 
