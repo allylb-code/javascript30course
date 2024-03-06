@@ -8,6 +8,82 @@
 <body>
 <canvas id="draw" width="800" height="800"></canvas>
 <script>
+
+    const canvas = document.querySelector('#draw');
+    const ctx = canvas.getContext('2d');
+
+    //resize canvas
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    ctx.strokeStyle = '#BADA55';
+    ctx.lineJoin = 'round';
+    ctx.lineCap = 'round';
+    ctx.lineWidth = 100;
+    let direction = true;
+
+    //flag telling if mouse is clicked (should draw) or just moving (don't draw)
+    let isDrawing = false;
+    
+    //start and stop the line
+    let lastX = 0;
+    let lastY = 0;
+
+    let hue = 0;
+
+
+    function draw(e) {
+        //stop the function from running when they are not moused down
+        if(!isDrawing) return;
+
+        //hsl
+        ctx.strokeStyle = `hsl(${hue}, 100%, 50%)`;
+     
+        ctx.beginPath();
+        //start from
+        ctx.moveTo(lastX, lastY);
+        //come from the event
+        //go to
+        ctx.lineTo(e.offsetX, e.offsetY);
+        ctx.stroke();
+
+        //one line to set these variables using ES6 (destructuring array)
+        //[lastX, lastY] = [e.offsetX, e.offsetY];
+        lastX = e.offsetX;
+        lastY = e.offsetY;
+        //change the colors according to hsl, make the rainbow!
+        hue++;
+        if (hue >= 360) {
+            hue = 0;
+        }
+
+        //will make the line go bigger, then will get smaller again
+        if(ctx.lineWidth >= 100 || ctx.lineWidt <= 1) {
+            direction = !direction;
+        }
+        if(direction) {
+            ctx.lineWidth++;
+        } else {
+            ctx.lineWidth--;
+        }
+   
+    }
+
+    canvas.addEventListener('mousemove', draw);
+
+    //will start the line where the mouse is clicked
+    canvas.addEventListener('mousedown', (e) => {
+        isDrawing = true;
+        [lastX, lastY] = [e.offsetX, e.offsetY];
+    });
+
+
+    canvas.addEventListener('mouseup', () => isDrawing = false);
+    canvas.addEventListener('mouseout', () => isDrawing = false);
+
+
+
+
 </script>
 
 <style>
