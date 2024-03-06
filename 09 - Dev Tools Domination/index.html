@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Console Tricks!</title>
+  <link rel="icon" href="https://fav.farm/🔥" />
+</head>
+<body>
+
+  <p onClick="makeGreen()">×BREAK×DOWN×</p>
+
+  <script>
+    const dogs = [{ name: 'Snickers', age: 2 }, { name: 'hugo', age: 8 }];
+
+    function makeGreen() {
+      const p = document.querySelector('p');
+      p.style.color = '#BADA55';
+      p.style.fontSize = '50px';
+    }
+
+    // Regular
+
+    console.log("hello");
+
+
+    // Interpolated
+
+    console.log('Hello I am a %s string!', '+poop');
+    consol.elog(`Hello I am a ${variable}`);
+
+
+    // Styled
+
+    console.log("%c I am some great text", 'font-size:50px backgorund: red;');
+
+    // warning!
+
+    console.warn('OH NO!');
+
+    // Error :|
+
+    console.error('Error!');
+
+    // Info
+
+    console.info('Crocodiles eat 3-4 people a year');
+
+    // Testing
+
+    //only logs if it's false, if it's right nothing will happen
+    console.assert(1 === 1, 'That is wrong!');
+    onsole.assert(1 === 2, 'That is wrong!');
+
+    // clearing your console
+
+    console.clear();
+
+    // Viewing DOM Elements
+
+    console.log(p);
+    //gives you a drop down list ... all properties/methods/etc.
+    console.dir(p);
+
+    // Grouping together
+
+    //regular for each
+    dogs.forEach(dog => {
+        console.log(`This is ${dog.name}`);
+        console.log(`He is ${dog.age}`);
+    });
+
+    //using group
+    dogs.forEach(dog => {
+        console.groupCollapsed(`${dog.name}`);
+        console.log(`This is ${dog.name}`);
+        console.log(`He is ${dog.age}`);
+        console.groupEnd(`${dog.name}`);
+    });
+
+    // counting
+
+    console.count('Word');
+    console.count(Object);
+    console.count(Number);
+
+    // timing
+
+    console.time('fetching data');
+    fetch('https://api.github.com/users/wesbos')
+        .then(data => data.json())
+        .then(data => {
+            console.timeEnd('fetching data')
+            console.log(data);
+        })
+
+        //makes a table in console of all of your info/data (an array of objects for example)
+        console.table(dogs);
+
+  </script>
+</body>
+</html>
